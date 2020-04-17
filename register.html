@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="stylesheet/register.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <div class="box">
+        <form action="registerVerify.php" method="post">
+            <h1>Create Account</h1>
+            <fieldset>
+                <legend>
+                    <h2>Account Detail</h2>
+                </legend>
+                <input type="text" class="form-control" placeholder="Username" name="username" required autofocus><br>
+                <input type="email" class="form-control" placeholder="Email" name="email" required><br>
+                <input type="password" class="form-control" placeholder="Password" name="password" required><br>
+                <input type="text" class="form-control" placeholder="Phone Number" name="phone" required><br>
+            </fieldset>
+            <fieldset>
+                <legend>
+                    <h2>Addresss</h2>
+                </legend>
+                <input type="text" class="form-control" placeholder="Street" name="street" required><br>
+                <input type="text" class="form-control" placeholder="City" name="city" required><br>
+                <input type="text" class="form-control" placeholder="Country" name="country" required><br>
+                <input type="text" class="form-control" placeholder="State" name="state" required><br>
+                <input type="text" class="form-control" placeholder="Zip Code" name="zip" required><br>
+            </fieldset>
+            <fieldset>
+                <legend>
+                    <h2>Credit Info</h2>
+                </legend>
+                <input type="text" class="form-control" placeholder="Name" name="name" required><br>
+                <input type="text" class="form-control" placeholder="Credit Number" name="creditNumber" required><br>
+                <input type="text" class="form-control" placeholder="Security Number" name="security" required><br>
+            </fieldset>
+            <fieldset>
+                <legend>
+                    <h2>User Profile Picture Upload</h2>
+                </legend>
+                <label>Picture: </label>
+                <input type="file" name="fileToUpload" id="fileToUpload" required><br><br>
+            </fieldset>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+</body>
+</html>
