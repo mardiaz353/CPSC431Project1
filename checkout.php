@@ -8,14 +8,14 @@
         header("location: error.html");
     }
     $user = $_SESSION['valid_user'];
-	//$_SESSION['cart'] = array();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APP</title>
+    <title>CHECKOUT</title>
     <link rel="stylesheet" type="text/css" href="stylesheet/home.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -52,86 +52,52 @@
         <div>
     </nav>
 	
-	<!-- Sort button -->
-	<form action = "home.php" method="post" enctype="multipart/form-data">
-	<div class="form-group">
-	<form action = "home.php" method="post" enctype="multipart/form-data">
-	<table>
-            <h3>Sort By:
-            <select id="sortby" class="form-control" name="sort">
-				<option value="name">Product Name</option>
-                <option value="priceAsc">Price Ascending</option>
-                <option value="priceDesc">Price Descending</option>
-            </select>
-			<button type="submit" name="ok">Ok</button>
-            </h3>;
-        </div>
-	</table>
-		
-<!----- display profiles -------------------------------------------------------------->
+ <form action = "cart.php" method = "post" enctype = "multipart/form-data">
+        <td> 
+        <button type="submit" formaction="$document_root/../home.php"> Continue Shopping </button>
+		</td>
+</form>
+
+
+<!-- Show all items in the cart so far -->
+
+
 <?php
-    
-	
-	/*-------Sorting algorithm to product display---------------------------*/
-	
-	if (isset($_POST["ok"])) {
-		$answer = $_POST["sort"];
-	} else {
-		//set default $query
-		$query = "SELECT * FROM product ORDER BY name";
+ $conn = db_connect();
+if(($_SESSION['cart'])) {
+	$total = 0;
+	//echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>';	
+	foreach ($_SESSION['cart'] as $id) {
+		$query = "SELECT * FROM product WHERE prod_id = '$id'";
+		echo"<div class='box'>Product is added to your cart!</div>";
+		$result = $conn->query($query);
+		if($row = $result->fetch_row()) {
+			echo '<div class="list-content">'; // fileName 
+			echo'<img src="uploads/'.$row[3].'"/ alt="Error on Displaying"></img>'; //picture
+			echo'<div class="text">'.$row[1].'</div>'; // name
+			echo'<div class="price">'. '$'.$row[2].'</div>'; // 
+			$total = $total + $row[2];
+			echo'<div class="text">'. 'Description: '.$row[4].'</div>'; // description
+			echo'</div>';
+		}
 	}
-		
-	if($answer == 'name') {
-		$query = "SELECT * FROM product ORDER BY name";
-	} else if($answer == 'priceAsc') {
-		$query = "SELECT * FROM product ORDER BY price";
-	} else if($answer == 'priceDesc') {
-		$query = "SELECT * FROM product ORDER BY price DESC";
-	}
-
-// connect to db
-    $conn = db_connect();
-    // get data with default sort
-    
-    $result = $conn->query($query);
-    // just in case something happes
-    if(!$result) {
-        throw new Exception('product is not found');
-        exit;
-    }
-	/*-------Display products---------------------------------------------------------*/
-	
-    while($row = $result->fetch_row()) 
-    {
-        echo '<div class="list-content">'; // fileName 
-        echo'<img src="uploads/'.$row[3].'"/ alt="Error on Displaying"></img>'; //picture
-        echo'<div class="text">'.$row[1].'</div>'; // name
-        echo'<div class="price">'. '$'.$row[2].'</div>'; // price
-        echo'<div class="text">'. 'Description: '.$row[4].'</div>'; // description
-        echo'<form action="cart.php" method="post" "multipart/form-data">';
-        echo'<input class="button" type="submit" name="id" value="ADD TO CART"/>';
-        echo'<input type="hidden" name="recordID" value="'.$row[0].'">';
-        echo'</form>';
-        echo'</div>';
-
-		
-        // echo '<a href="product?recordID='.$row[0].'">';
-        // echo '<div class="list-content">'; // fileName 
-        // echo'<img src="uploads/'.$row[3].'"/ alt="Error on Displaying"></img>'; //picture
-        // echo'<div class="text">'.$row[1].'</div>'; // name
-        // echo'<div class="price">'. '$'.$row[2].'</div>'; // price
-        // echo'<div class="text">'. 'Description: '.$row[4].'</div>'; // description
-        // echo'</div>';
-        // echo '</a>';
-    }
-
-
-	//$_SESSION['cart'] = 5;
-
-    // close connection
+	$total = round($total, 2);
+	echo"<div class='box'>Your total is: </div>";
+	echo "$".$total;
+	$tax = round(0.0725*$total, 2);
+	echo"<div class='box'>Taxes due: </div>";
+	echo "$".$tax;
+	$grand_total = round($total + $tax, 2);
+	echo"<div class='box'>Grand total: </div>";
+	echo "$".$grand_total;
+	// close connection
     $result->close();
     $conn->close();
-
+} else {
+	echo "<p>There are no items in your cart</p><hr/>";
+}
 ?>
-</body>
-</html>
+
+
+
+
