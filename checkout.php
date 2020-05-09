@@ -55,6 +55,10 @@
  <form action = "cart.php" method = "post" enctype = "multipart/form-data">
         <td> 
         <button type="submit" formaction="$document_root/../home.php"> Continue Shopping </button>
+		<td> 
+        
+        <button type="submit" formaction="#"> Purchase</button>
+        </td>
 		</td>
 </form>
 
