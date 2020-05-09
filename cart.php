@@ -67,8 +67,7 @@ $id = $_POST['recordID'];
 	
 	//___save the item to the session cart_____
 	
-	//$_SESSION["cart"] = $id;
-	array_push($_SESSION["cart"], $id);
+	array_push($_SESSION['cart'], $id);
 	//__________________________________________
 	
 	
