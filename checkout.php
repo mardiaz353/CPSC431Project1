@@ -57,7 +57,7 @@
         <button type="submit" formaction="$document_root/../home.php"> Continue Shopping </button>
 		<td> 
         
-        <button type="submit" formaction="#"> Purchase</button>
+        <button type="submit" formaction="$document_root/../emptyCart.php"> Purchase</button>
         </td>
 		</td>
 </form>
@@ -73,7 +73,6 @@ if(($_SESSION['cart'])) {
 	//echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>';	
 	foreach ($_SESSION['cart'] as $id) {
 		$query = "SELECT * FROM product WHERE prod_id = '$id'";
-		echo"<div class='box'>Product is added to your cart!</div>";
 		$result = $conn->query($query);
 		if($row = $result->fetch_row()) {
 			echo '<div class="list-content">'; // fileName 
