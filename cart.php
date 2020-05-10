@@ -7,6 +7,11 @@ if(!isset($_SESSION['valid_user']))
     echo "sorry log in";
     header("location: error.html");
 }
+
+if(!isset($_SESSION['cart']))
+{
+	$_SESSION['cart'] = array();
+    }
 $user = $_SESSION['valid_user'];
 $id = $_POST['recordID'];
 ?>
@@ -58,6 +63,8 @@ $id = $_POST['recordID'];
         <button type="submit" formaction="$document_root/../checkout.php"> Checkout </button>
 		</td>
 </form>
+</body>
+</html>
 	
 <!-- display profiles the recently added item -->
 <?php
@@ -90,7 +97,10 @@ $id = $_POST['recordID'];
 		$price = $row[2];
         echo'<div class="text">'. 'Description: '.$row[4].'</div>'; // description
 		$description = $row[4];
+
         echo'</div>';
+	echo"<div class='box'>Product is added to your cart!</div>";
+
     }
 
     // close connection
@@ -105,10 +115,9 @@ $id = $_POST['recordID'];
  $conn = db_connect();
 if(($_SESSION['cart'])) {
 
-	//echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>';	
+	echo"<div class='box'>Items currently in your shopping cart below: </div>";	
 	foreach ($_SESSION['cart'] as $id) {
 		$query = "SELECT * FROM product WHERE prod_id = '$id'";
-		echo"<div class='box'>Product is added to your cart!</div>";
 		$result = $conn->query($query);
 		if($row = $result->fetch_row()) {
 			echo '<div class="list-content">'; // fileName 
