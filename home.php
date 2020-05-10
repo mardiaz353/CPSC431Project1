@@ -8,7 +8,6 @@
         header("location: error.html");
     }
     $user = $_SESSION['valid_user'];
-	//$_SESSION['cart'] = array();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -125,8 +124,6 @@
         // echo '</a>';
     }
 
-
-	//$_SESSION['cart'] = 5;
 
     // close connection
     $result->close();
