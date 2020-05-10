@@ -1,6 +1,6 @@
 CPSC-431 Project 1
 
-Project url: http://ecs.fullerton.edu/~cs431s28/project1/index.html
+Project url:
 
 Team member names: Mauricio Macias, CWID: 890741622
 				   Maria Diaz, CWID: 888888914
